@@ -66,6 +66,11 @@
             <artifactId>ruoyi-course</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-merchant</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

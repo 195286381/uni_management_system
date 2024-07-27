@@ -1,6 +1,6 @@
 @echo off
 echo.
-echo [信息] 打包Web工程，生成dist文件。
+echo [脨脜脧垄] 麓貌掳眉Web鹿陇鲁脤拢卢脡煤鲁脡dist脦脛录镁隆拢
 echo.
 
 %~d0
