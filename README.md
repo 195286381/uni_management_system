@@ -4,7 +4,7 @@
 通用后台管理系统基于ruoyi V3.8.8系统版本改造. 适配一般项目情况.
 
 - 采用了前后端分离的单体架构设计
-- 软件环境: JDK、MYSQL、Redis、Maven、Node
+- 软件环境: JDK、MYSQL、Redis、Minio、Maven、Node
 - 技术选型: Spring Boot, Spring Security, MyBatis, Jwt, Vue3, Element-Plus
  
 ## 快速开始
@@ -20,6 +20,7 @@
 
 ![img.png](img.png)
 
+## 新增功能.
 - 集成jasypt实现配置文件加密
 - 集成jsencrypt实现密码加密传输方式
 - 集成minio实现文件上传下载
