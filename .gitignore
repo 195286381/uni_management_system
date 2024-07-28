@@ -46,5 +46,9 @@ nbdist/
 !*/build/*.html
 !*/build/*.xml
 
+
+###
 yarn.lock
 .github
+### 去掉日志文件
+logs
