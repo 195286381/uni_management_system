@@ -24,3 +24,4 @@
 - 集成jsencrypt实现密码加密传输方式
 - 集成minio实现文件上传下载
 - 添加lombok支持
+- 增加knife4j文档

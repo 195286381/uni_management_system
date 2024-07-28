@@ -4,6 +4,8 @@
 
 <script setup>
 import iFrame from '@/components/iFrame'
-
-const url = ref(import.meta.env.VITE_APP_BASE_API + "/swagger-ui/index.html")
+// swagger ui
+//const url = ref(import.meta.env.VITE_APP_BASE_API + "/swagger-ui/index.html")
+// knife4j
+const url = ref(import.meta.env.VITE_APP_BASE_API + "/doc.html")
 </script>
