@@ -1,4 +1,5 @@
-# aliyun环境配置
+# 本地连接开发环境配置
+# 数据源配置
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
