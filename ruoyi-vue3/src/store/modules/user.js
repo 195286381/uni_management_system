@@ -1,6 +1,7 @@
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import defAva from '@/assets/images/profile.jpg'
+import {isExternal} from "@/utils/validate.js";
 
 const useUserStore = defineStore(
   'user',
@@ -35,7 +36,12 @@ const useUserStore = defineStore(
         return new Promise((resolve, reject) => {
           getInfo().then(res => {
             const user = res.user
-            const avatar = (user.avatar == "" || user.avatar == null) ? defAva : import.meta.env.VITE_APP_BASE_API + user.avatar;
+            const avatar = (user.avatar == "" || user.avatar == null) ?
+                // 如果没有设置头像，则使用默认头像
+                defAva
+                :
+                // 如果是外部地址，则直接使用，否则使用本地地址
+                (isExternal(user.avatar) ? user.avatar : process.env.VUE_APP_BASE_API + user.avatar)
 
             if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
               this.roles = res.roles

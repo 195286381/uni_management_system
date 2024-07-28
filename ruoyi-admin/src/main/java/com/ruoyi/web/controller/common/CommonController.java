@@ -70,20 +70,17 @@ public class CommonController
     }
 
     /**
-     * 通用上传请求（单个）
+     * 自定义 Minio 服务器上传请求
      */
     @PostMapping("/upload")
-    public AjaxResult uploadFile(MultipartFile file) throws Exception
+    public AjaxResult uploadFileByMinio(MultipartFile file) throws Exception
     {
         try
         {
-            // 上传文件路径
-            String filePath = RuoYiConfig.getUploadPath();
             // 上传并返回新文件名称
-            String fileName = FileUploadUtils.upload(filePath, file);
-            String url = serverConfig.getUrl() + fileName;
+            String fileName = FileUploadUtils.uploadMinio(file);
             AjaxResult ajax = AjaxResult.success();
-            ajax.put("url", url);
+            ajax.put("url", fileName);
             ajax.put("fileName", fileName);
             ajax.put("newFileName", FileUtils.getName(fileName));
             ajax.put("originalFilename", file.getOriginalFilename());
@@ -94,6 +91,33 @@ public class CommonController
             return AjaxResult.error(e.getMessage());
         }
     }
+
+    /**
+     * 改用minio 这个接口先注释了
+     * 通用上传请求（单个）
+     */
+    //@PostMapping("/upload")
+    //public AjaxResult uploadFile(MultipartFile file) throws Exception
+    //{
+    //    try
+    //    {
+    //        // 上传文件路径
+    //        String filePath = RuoYiConfig.getUploadPath();
+    //        // 上传并返回新文件名称
+    //        String fileName = FileUploadUtils.upload(filePath, file);
+    //        String url = serverConfig.getUrl() + fileName;
+    //        AjaxResult ajax = AjaxResult.success();
+    //        ajax.put("url", url);
+    //        ajax.put("fileName", fileName);
+    //        ajax.put("newFileName", FileUtils.getName(fileName));
+    //        ajax.put("originalFilename", file.getOriginalFilename());
+    //        return ajax;
+    //    }
+    //    catch (Exception e)
+    //    {
+    //        return AjaxResult.error(e.getMessage());
+    //    }
+    //}
 
     /**
      * 通用上传请求（多个）
