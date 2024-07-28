@@ -19,3 +19,8 @@
 - | Minio | 版本待补充             |
 
 ![img.png](img.png)
+
+- 集成jasypt实现配置文件加密
+- 集成jsencrypt实现密码加密传输方式
+- 集成minio实现文件上传下载
+- 添加lombok支持
