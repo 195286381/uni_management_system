@@ -1,7 +1,12 @@
 import request from '@/utils/request'
+import {encrypt} from "@/utils/jsencrypt.js";
 
 // 登录方法
 export function login(username, password, code, uuid) {
+  // 开发环境下前后端传输密码不加密
+  //if (process.env.NODE_ENV !== 'development') {
+    password = encrypt(password)
+  //}
   const data = {
     username,
     password,

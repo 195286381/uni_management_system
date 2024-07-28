@@ -47,13 +47,14 @@ public class SysLoginController
      */
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginBody loginBody) {
+        System.out.println("loginBody = " + loginBody);
         AjaxResult ajax = AjaxResult.success();
-//      // 对前端传入的密码进行解密
-//        try {
-//            loginBody.setPassword(RsaUtils.decryptByPrivateKey(loginBody.getPassword()));
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
+      // 对前端传入的密码进行解密
+        try {
+            loginBody.setPassword(rsaUtils.decryptByPrivateKey(loginBody.getPassword()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         // 生成令牌
         String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
                 loginBody.getUuid());
