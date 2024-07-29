@@ -1,7 +1,6 @@
 package com.uni.framework.web.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,15 +15,14 @@ import com.uni.common.utils.StringUtils;
 import com.uni.system.service.ISysUserService;
 
 /**
- * 用户验证处理
+ * 基于账户密码的用户验证处理
  *
- * @author uni
+ * @author zhuzw57
  */
-@Service
-public class UserDetailsServiceImpl implements UserDetailsService
+@Slf4j
+@Service("usernamePasswordUserDetailsServiceImpl")
+public class UsernamePasswordUserDetailsServiceImpl implements UserDetailsService
 {
-    private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
-
     @Autowired
     private ISysUserService userService;
     

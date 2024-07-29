@@ -1,6 +1,7 @@
 package com.uni.framework.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -9,6 +10,8 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +25,7 @@ import com.uni.framework.security.handle.AuthenticationEntryPointImpl;
 import com.uni.framework.security.handle.LogoutSuccessHandlerImpl;
 
 /**
- * spring security配置
+ * spring security 配置
  * 
  * @author uni
  */
@@ -34,7 +37,8 @@ public class SecurityConfig
      * 自定义用户认证逻辑
      */
     @Autowired
-    private UserDetailsService userDetailsService;
+    @Qualifier("usernamePasswordUserDetailsServiceImpl")
+    private UserDetailsService usernamePasswordUserDetailsService;
     
     /**
      * 认证失败处理类
@@ -67,13 +71,13 @@ public class SecurityConfig
     private PermitAllUrlProperties permitAllUrl;
 
     /**
-     * 身份验证实现
+     * 基于用户密码的身份验证实现
      */
     @Bean
     public AuthenticationManager authenticationManager()
     {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        daoAuthenticationProvider.setUserDetailsService(usernamePasswordUserDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
         return new ProviderManager(daoAuthenticationProvider);
     }
@@ -94,6 +98,7 @@ public class SecurityConfig
      * authenticated       |   用户登录后可访问
      */
     @Bean
+    // 完全自己定义了securityFilterChain.
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception
     {
         return httpSecurity
