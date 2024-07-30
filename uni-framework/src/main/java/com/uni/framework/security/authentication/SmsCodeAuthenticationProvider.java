@@ -6,6 +6,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+/**
+ * 短信验证码登录
+ * @author ：zhuzw
+ */
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
     private UserDetailsService userDetailsService;
 

@@ -8,6 +8,8 @@ import java.util.Collection;
 
 /**
  * 自定义短信登录token验证
+ * @author ：zhuzw
+ *
  */
 public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
 
