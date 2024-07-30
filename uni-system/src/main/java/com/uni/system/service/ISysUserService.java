@@ -56,7 +56,7 @@ public interface ISysUserService
      * @param phone 手机号码
      * @return 用户对象信息
      */
-    public SysUser selecUserByPhone(String phone);
+    public SysUser selecUserByPhone(Long phone);
 
     /**
      * 根据用户ID查询用户所属角色组

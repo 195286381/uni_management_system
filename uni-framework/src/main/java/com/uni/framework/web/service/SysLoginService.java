@@ -1,6 +1,8 @@
 package com.uni.framework.web.service;
 
 import javax.annotation.Resource;
+
+import com.uni.framework.security.authentication.SmsCodeAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -73,7 +75,7 @@ public class SysLoginService
         {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
             AuthenticationContextHolder.setContext(authenticationToken);
-            // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+            // 该方法会去调用UsernamePasswordDetailsServiceImpl.loadUserByUsername
             authentication = authenticationManager.authenticate(authenticationToken);
         }
         catch (Exception e)
@@ -177,5 +179,53 @@ public class SysLoginService
         sysUser.setLoginIp(IpUtils.getIpAddr());
         sysUser.setLoginDate(DateUtils.getNowDate());
         userService.updateUserProfile(sysUser);
+    }
+
+    public String smsLogin(Long telephone, String code, String uuid) {
+        // 验证码校验
+        //validateSmsCode(telephone, code, uuid);
+
+        // 用户验证
+        Authentication authentication = null;
+
+        try
+        {
+            SmsCodeAuthenticationToken authenticationToken = new SmsCodeAuthenticationToken(telephone);
+            AuthenticationContextHolder.setContext(authenticationToken);
+            // 该方法会去调用SmsCodeDetailsServiceImpl.loadUserByUsername
+            authentication = authenticationManager.authenticate(authenticationToken);
+        }
+        catch (Exception e)
+        {
+            if (e instanceof BadCredentialsException)
+            {
+                AsyncManager.me().execute(AsyncFactory.recordLogininfor(telephone + "", Constants.LOGIN_FAIL, MessageUtils.message("account.not.incorrect")));
+                throw new UserPasswordNotMatchException();
+            }
+            else
+            {
+                AsyncManager.me().execute(AsyncFactory.recordLogininfor(telephone + "", Constants.LOGIN_FAIL, e.getMessage()));
+                throw new ServiceException(e.getMessage());
+            }
+        }
+        finally
+        {
+            AuthenticationContextHolder.clearContext();
+        }
+        AsyncManager.me().execute(AsyncFactory.recordLogininfor(telephone + "", Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        recordLoginInfo(loginUser.getUserId());
+        // 生成token
+        return tokenService.createToken(loginUser);
+    }
+
+    /**
+     * 短信登录校验
+     * @param telephone
+     * @param code
+     * @param uuid
+     * TODO: // 添加短信登录校验的逻辑
+     */
+    private void validateSmsCode(String telephone, String code, String uuid) {
     }
 }

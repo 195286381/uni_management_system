@@ -6,6 +6,7 @@ import com.uni.common.enums.UserStatus;
 import com.uni.common.exception.ServiceException;
 import com.uni.common.utils.StringUtils;
 import com.uni.system.service.ISysUserService;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +20,8 @@ import org.springframework.stereotype.Service;
  * @author zhuzw57
  */
 @Slf4j
-@Service("smsUserDetailsServiceImpl")
-public class SmsUserDetailsServiceImpl implements UserDetailsService {
+@Service("smsCodeUserDetailsServiceImpl")
+public class SmsCodeUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private ISysUserService userService;
     @Autowired
@@ -28,7 +29,8 @@ public class SmsUserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
         // 通过手机号查询用户
-        SysUser user = userService.selecUserByPhone(phoneNumber);
+        long number = Long.parseLong(phoneNumber);
+        SysUser user = userService.selecUserByPhone(number);
         if (StringUtils.isNull(user)) {
             log.info("登录用户：{} 不存在.", phoneNumber);
             throw new ServiceException("登录用户：" + phoneNumber+ " 不存在");

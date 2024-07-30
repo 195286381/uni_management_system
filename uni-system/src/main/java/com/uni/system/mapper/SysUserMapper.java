@@ -125,5 +125,5 @@ public interface SysUserMapper
      */
     public SysUser checkEmailUnique(String email);
 
-    SysUser selecUserByPhone(String phonenumber);
+    SysUser selecUserByPhone(Long phonenumber);
 }

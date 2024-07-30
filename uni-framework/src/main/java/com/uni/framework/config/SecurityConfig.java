@@ -1,5 +1,6 @@
 package com.uni.framework.config;
 
+import com.uni.framework.security.authentication.SmsCodeAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -10,8 +11,6 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,6 +38,11 @@ public class SecurityConfig
     @Autowired
     @Qualifier("usernamePasswordUserDetailsServiceImpl")
     private UserDetailsService usernamePasswordUserDetailsService;
+
+    @Autowired
+    @Qualifier("smsCodeUserDetailsServiceImpl")
+    private UserDetailsService smsCodeUserDetailsService;
+
     
     /**
      * 认证失败处理类
@@ -76,10 +80,16 @@ public class SecurityConfig
     @Bean
     public AuthenticationManager authenticationManager()
     {
+        // 用户密码方式
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(usernamePasswordUserDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
-        return new ProviderManager(daoAuthenticationProvider);
+
+        // 短信验证码方式
+        SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
+        smsCodeAuthenticationProvider.setUserDetailsService(smsCodeUserDetailsService);
+
+        return new ProviderManager(daoAuthenticationProvider, smsCodeAuthenticationProvider);
     }
 
     /**
@@ -115,8 +125,8 @@ public class SecurityConfig
             // 注解标记允许匿名访问的url
             .authorizeHttpRequests((requests) -> {
                 permitAllUrl.getUrls().forEach(url -> requests.antMatchers(url).permitAll());
-                // 对于登录login 注册register 验证码captchaImage 允许匿名访问
-                requests.antMatchers("/login", "/register", "/captchaImage").permitAll()
+                // 对于登录login / smsLogin 注册register 验证码captchaImage 允许匿名访问
+                requests.antMatchers("/login","/smsLogin", "/register", "/captchaImage").permitAll()
                     // 静态资源，可匿名访问
                     .antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
                     .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**").permitAll()
