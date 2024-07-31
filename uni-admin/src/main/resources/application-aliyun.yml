@@ -8,7 +8,7 @@ spring:
       master:
         url: jdbc:mysql://47.92.253.137:3307/ruoyi2024?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
-        password: ENC(+II9quNGIDMBDAfnPUMGm3X6TAdskBWR)
+        password: ENC(dRdVmW88Ewey3RZQhD456p6IxNXdDqhh)
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
@@ -68,7 +68,7 @@ spring:
     # 数据库索引
     database: 0
     # 密码
-    password: ENC(+II9quNGIDMBDAfnPUMGm3X6TAdskBWR)
+    password: ENC(dRdVmW88Ewey3RZQhD456p6IxNXdDqhh)
     # 连接超时时间
     timeout: 10s
     lettuce:
@@ -81,3 +81,9 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+
+sms:
+  sms-provider: aliyun
+  aliyun-access-key-id: ENC(BdgmKaJ4gtul3UAA0RZill+KO1+mWKdkSZT7/Qnuzj1q4cxIVxa7Gw==)
+  aliyun-access-key-secret: ENC(BQU8pqaRRlS8udTVgpwCTrogHIuyfuMrdIzzQZNgEyWiMwEkY/lK+Q==)
+  enable: true

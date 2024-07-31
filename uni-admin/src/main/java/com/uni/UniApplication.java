@@ -16,6 +16,6 @@ public class UniApplication
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(UniApplication.class, args);
-        System.out.println(" Uni 后台服务启动成功 ");
+        System.out.println(" Uni后台服务启动成功");
     }
 }

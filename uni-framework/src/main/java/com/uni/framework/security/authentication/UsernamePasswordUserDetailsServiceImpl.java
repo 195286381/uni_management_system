@@ -1,5 +1,7 @@
-package com.uni.framework.web.service;
+package com.uni.framework.security.authentication;
 
+import com.uni.framework.web.service.SysPasswordService;
+import com.uni.framework.web.service.SysPermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

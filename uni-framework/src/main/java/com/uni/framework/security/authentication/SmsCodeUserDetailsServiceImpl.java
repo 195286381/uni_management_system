@@ -1,10 +1,11 @@
-package com.uni.framework.web.service;
+package com.uni.framework.security.authentication;
 
 import com.uni.common.core.domain.entity.SysUser;
 import com.uni.common.core.domain.model.LoginUser;
 import com.uni.common.enums.UserStatus;
 import com.uni.common.exception.ServiceException;
 import com.uni.common.utils.StringUtils;
+import com.uni.framework.web.service.SysPermissionService;
 import com.uni.system.service.ISysUserService;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

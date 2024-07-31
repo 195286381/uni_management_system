@@ -2,14 +2,7 @@ package com.uni.common.utils;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig;
-
 public class JasyptUtils {
-    public static void main(String[] args) {
-        String info = encrypt("XiaoZhu1990");
-        System.out.println(info);
-        System.out.println(decrypt("HW1acinBHA1WBVGkyeSTLGypgc33srrr"));
-    }
-
     /**
      * 加密
      *

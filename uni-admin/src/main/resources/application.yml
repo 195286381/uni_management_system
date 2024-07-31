@@ -144,9 +144,12 @@ security:
 
 jasypt:
   encryptor:
+    # 加密的秘钥
+    password: asdqwe123
     # 加密算法
     algorithm: PBEWithMD5AndDES
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
-    # 这里暂时写在配置文件 在真实项目中 可以从环境变量中获取
-    # 加密的秘钥
-    password: asdqwe123
+    property:
+      # 算法识别的前后缀，默认ENC()，包含在前后缀的加密信息，会使用指定算法解密
+      prefix: ENC(
+      suffix: )
