@@ -2,6 +2,7 @@ package com.uni.merchant.service.impl;
 
 import java.util.List;
 import com.uni.common.utils.DateUtils;
+import com.uni.merchant.domain.vo.RegionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.uni.merchant.mapper.RegionMapper;
@@ -92,5 +93,16 @@ public class RegionServiceImpl implements IRegionService
     public int deleteRegionById(Long id)
     {
         return regionMapper.deleteRegionById(id);
+    }
+
+    /**
+     * 查询区域管理列表
+     *
+     * @param region
+     * @return 结果
+     */
+    @Override
+    public List<RegionVO> selectRegionVOList(Region region) {
+        return regionMapper.selectRegionVOList(region);
     }
 }

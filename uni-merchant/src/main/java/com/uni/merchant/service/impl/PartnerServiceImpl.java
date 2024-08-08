@@ -2,6 +2,7 @@ package com.uni.merchant.service.impl;
 
 import java.util.List;
 import com.uni.common.utils.DateUtils;
+import com.uni.merchant.domain.vo.PartnerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.uni.merchant.mapper.PartnerMapper;
@@ -92,5 +93,16 @@ public class PartnerServiceImpl implements IPartnerService
     public int deletePartnerById(Long id)
     {
         return partnerMapper.deletePartnerById(id);
+    }
+
+    /**
+     * 查询合作商管理列表
+     *
+     * @param partner
+     * @return
+     */
+    @Override
+    public List<PartnerVO> selectPartnerVOList(Partner partner) {
+        return partnerMapper.selectPartnerVOList(partner);
     }
 }

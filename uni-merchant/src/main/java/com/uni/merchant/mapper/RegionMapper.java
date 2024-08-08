@@ -2,6 +2,7 @@ package com.uni.merchant.mapper;
 
 import java.util.List;
 import com.uni.merchant.domain.Region;
+import com.uni.merchant.domain.vo.RegionVO;
 
 /**
  * 区域管理Mapper接口
@@ -58,4 +59,12 @@ public interface RegionMapper
      * @return 结果
      */
     public int deleteRegionByIds(Long[] ids);
+
+
+    /**
+     * 查询区域管理列表
+     * @param region
+     * @return
+     */
+    public List<RegionVO> selectRegionVOList(Region region);
 }

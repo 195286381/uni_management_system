@@ -59,16 +59,24 @@
 
     <el-table v-loading="loading" :data="partnerList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="合作商ID" align="center" prop="id" />
+      <el-table-column label="序号" align="center" prop="id" />
       <el-table-column label="合作商名称" align="center" prop="partnerName" />
+      <el-table-column label="点位数" align="center" prop="nodeCount" />
+      <el-table-column label="账号" align="center" prop="account" />
+      <el-table-column label="分成比例" align="center" prop="revenueShare">
+        <!-- 显示百分比 -->
+        <template #default="scope">
+          {{ scope.row.revenueShare + '%' }}
+        </template>
+      </el-table-column>
       <el-table-column label="联系人" align="center" prop="contactPerson" />
       <el-table-column label="联系电话" align="center" prop="contactNumber" />
-      <el-table-column label="分成比例" align="center" prop="revenueShare" />
-      <el-table-column label="账号" align="center" prop="account" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="300">
         <template #default="scope">
-          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['region:partner:edit']">修改</el-button>
-          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['region:partner:remove']">删除</el-button>
+          <el-button link type="primary"  @click="handleResetPwd(scope.row)" v-hasPermi="['region:partner:edit']">重置密码</el-button>
+          <el-button link type="primary"  @click="handleDetail(scope.row)" v-hasPermi="['region:partner:edit']">查看详情</el-button>
+          <el-button link type="primary"  @click="handleUpdate(scope.row)" v-hasPermi="['region:partner:edit']">修改</el-button>
+          <el-button link type="primary"  @click="handleDelete(scope.row)" v-hasPermi="['region:partner:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -93,14 +101,21 @@
         <el-form-item label="联系电话" prop="contactNumber">
           <el-input v-model="form.contactNumber" placeholder="请输入联系电话" />
         </el-form-item>
-        <el-form-item label="分成比例" prop="revenueShare">
-          <el-input v-model="form.revenueShare" placeholder="请输入分成比例" />
+        <el-form-item label="联系电话" prop="createTime" v-if="form.id != null">
+          {{ form.createTime }}
         </el-form-item>
-        <el-form-item label="账号" prop="account">
+        <el-form-item label="分成比例" prop="revenueShare">
+          <el-input v-model="form.revenueShare" placeholder="请输入分成比例">
+            <!-- 增加百分比显示效果 -->
+            <template #append>%</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item v-if="form.id == null" label="账号" prop="account">
           <el-input v-model="form.account" placeholder="请输入账号" />
         </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="form.password" placeholder="请输入密码" />
+        <el-form-item v-if="form.id == null" label="密码" prop="password">
+          <!-- 将密码改输入框为🔐显示 -->
+          <el-input type="password" v-model="form.password" placeholder="请输入密码" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
@@ -113,11 +128,43 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 查看合作商详情 -->
+    <el-dialog :title="title" v-model="detailOpen" width="500px" append-to-body>
+      <el-form ref="partnerRef" :model="form" label-width="100px">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="合作商名称" prop="partnerName">
+              {{form.partnerName}}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="联系人" prop="contactPerson">
+              {{form.contactPerson}}
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="联系电话" prop="contactNumber">
+              {{form.contactNumber}}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="分成比例" prop="revenueShare">
+              {{form.revenueShare}}%
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </el-dialog>
+
   </div>
 </template>
 
 <script setup name="Partner">
-import { listPartner, getPartner, delPartner, addPartner, updatePartner } from "@/api/region/partner";
+import {listPartner, getPartner, delPartner, addPartner, updatePartner, resetPartnerPwd} from "@/api/region/partner";
+import { ref } from "vue";
 
 const { proxy } = getCurrentInstance();
 
@@ -266,11 +313,34 @@ function handleDelete(row) {
   }).catch(() => {});
 }
 
+/** 重置密码按钮操作 */
+function handleResetPwd(row) {
+  const _ids = row.id || ids.value;
+  proxy.$modal.confirm('是否确认重置合作商密码？').then(function() {
+    return resetPartnerPwd(_ids);
+  }).then(() => {
+    // 刷新列表
+    getList();
+    proxy.$modal.msgSuccess("重置密码成功");
+  }).catch(() => {});
+}
+
 /** 导出按钮操作 */
 function handleExport() {
   proxy.download('region/partner/export', {
     ...queryParams.value
   }, `partner_${new Date().getTime()}.xlsx`)
+}
+
+const detailOpen = ref(false);
+function handleDetail(row) {
+  reset();
+  const _id = row.id || ids.value
+  getPartner(_id).then(response => {
+    form.value = response.data;
+    title.value = "合作商信息";
+    detailOpen.value = true;
+  });
 }
 
 getList();

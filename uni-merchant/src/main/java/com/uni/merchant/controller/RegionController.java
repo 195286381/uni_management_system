@@ -2,6 +2,8 @@ package com.uni.merchant.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.uni.merchant.domain.vo.RegionVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +44,7 @@ public class RegionController extends BaseController
     public TableDataInfo list(Region region)
     {
         startPage();
-        List<Region> list = regionService.selectRegionList(region);
+        List<RegionVO> list = regionService.selectRegionVOList(region);
         return getDataTable(list);
     }
 
@@ -101,4 +103,5 @@ public class RegionController extends BaseController
     {
         return toAjax(regionService.deleteRegionByIds(ids));
     }
+
 }
