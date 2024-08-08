@@ -2,6 +2,7 @@ package com.uni.merchant.service;
 
 import java.util.List;
 import com.uni.merchant.domain.Partner;
+import com.uni.merchant.domain.vo.PartnerVO;
 
 /**
  * 合作商管理Service接口
@@ -58,4 +59,12 @@ public interface IPartnerService
      * @return 结果
      */
     public int deletePartnerById(Long id);
+
+
+    /**
+     * 查询合作商管理列表
+     * @param partner
+     * @return
+     */
+    public List<PartnerVO> selectPartnerVOList(Partner partner);
 }

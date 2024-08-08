@@ -1,5 +1,7 @@
 package com.uni.web.controller.system;
 
+import com.uni.common.annotation.TimeStatistic;
+import com.uni.practice.annotation.MyTestLogAnnotation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -112,6 +114,8 @@ public class SysLoginController
      */
     @ApiOperation(value = "获取当前登录用户菜单树", notes = "返回当前登录用户的菜单树信息")
     @GetMapping("/getRouters")
+    @TimeStatistic
+    @MyTestLogAnnotation(moduleName = "system", type = "get")
     public AjaxResult getRouters() {
         Long userId = SecurityUtils.getUserId();
         List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);

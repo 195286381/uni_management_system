@@ -29,6 +29,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectRegionVo"/>
         where id = #{id}
     </select>
+    <!-- 查询区域视图数据 -->
+    <select id="selectRegionVOList" resultType="com.uni.merchant.domain.vo.RegionVO">
+        select
+            r.id,
+            r.region_name,
+            r.create_time,
+            r.update_time,
+            r.create_by,
+            r.update_by,
+            r.remark,
+            (select count(1) from tb_node r2 where r2.region_id = r.id) as node_count
+        from
+            tb_region r
+        <where>
+            <if test="regionName != null  and regionName != ''"> and r.region_name like concat('%', #{regionName}, '%')</if>
+        </where>
+
+    </select>
 
     <insert id="insertRegion" parameterType="Region" useGeneratedKeys="true" keyProperty="id">
         insert into tb_region

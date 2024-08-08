@@ -2,6 +2,9 @@ package com.uni.merchant.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.uni.common.utils.SecurityUtils;
+import com.uni.merchant.domain.vo.PartnerVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,14 +38,14 @@ public class PartnerController extends BaseController
     private IPartnerService partnerService;
 
     /**
-     * 查询合作商管理列表
+     * 查询合作商管理列表(带点位节点)
      */
     @PreAuthorize("@ss.hasPermi('region:partner:list')")
     @GetMapping("/list")
     public TableDataInfo list(Partner partner)
     {
         startPage();
-        List<Partner> list = partnerService.selectPartnerList(partner);
+        List<PartnerVO> list = partnerService.selectPartnerVOList(partner);
         return getDataTable(list);
     }
 
@@ -77,6 +80,8 @@ public class PartnerController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Partner partner)
     {
+        // 对用户密码加密存储.
+        partner.setPassword(SecurityUtils.encryptPassword(partner.getPassword()));
         return toAjax(partnerService.insertPartner(partner));
     }
 
@@ -100,5 +105,23 @@ public class PartnerController extends BaseController
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(partnerService.deletePartnerByIds(ids));
+    }
+
+
+    /**
+     *  重置合作商密码
+     *  注意每个请求都有权限控制和日志信息
+     */
+    @PreAuthorize("@ss.hasPermi('region:partner:edit')")
+    @Log(title = "合作商管理", businessType = BusinessType.UPDATE)
+    @PutMapping("resetPwd/{id}")
+    public AjaxResult edit(@PathVariable("id") Long id)
+    {
+        final String  INIT_PASSWORD = "123456";
+    // 接收请求参数.
+        Partner partner = new Partner();
+        partner.setId(id);
+        partner.setPassword(SecurityUtils.encryptPassword(INIT_PASSWORD));
+        return toAjax(partnerService.updatePartner(partner));
     }
 }
