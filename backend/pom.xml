@@ -202,6 +202,13 @@
                 <version>${uni.version}</version>
             </dependency>
 
+            <!-- ICT-->
+            <dependency>
+                <groupId>com.uni</groupId>
+                <artifactId>uni-ict</artifactId>
+                <version>${uni.version}</version>
+            </dependency>
+
 
 
         </dependencies>
@@ -216,6 +223,7 @@
         <module>uni-common</module>
         <module>uni-sms</module>
         <module>uni-merchant</module>
+        <module>uni-ict</module>
     </modules>
     <packaging>pom</packaging>
 

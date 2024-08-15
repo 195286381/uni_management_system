@@ -97,15 +97,6 @@ token:
   # 令牌有效期（默认30分钟）
   expireTime: 30
 
-# MyBatis配置
-mybatis:
-  # 搜索指定包别名
-  typeAliasesPackage: com.uni.**.domain
-  # 配置mapper的扫描，找到所有的mapper.xml映射文件
-  mapperLocations: classpath*:mapper/**/*Mapper.xml
-  # 加载全局的配置文件
-  configLocation: classpath:mybatis/mybatis-config.xml
-
 # PageHelper分页插件
 pagehelper:
   helperDialect: mysql
@@ -134,6 +125,16 @@ minio:
   accessKey: W9yoC98pQGVOrqrIpqXj
   secretKey: uCmx4BxUxVxfeY5sGWo6ZpJDM1owABtNhRUb800r
   bucketName: manage-system-dev
+
+
+# MyBatis Plus配置
+mybatis-plus:
+  # 搜索指定包别名
+  typeAliasesPackage: com.uni.**.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # 加载全局的配置文件
+  configLocation: classpath:mybatis/mybatis-config.xml
 
 # 安全相关的配置
 security:

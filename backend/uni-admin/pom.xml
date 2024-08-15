@@ -62,6 +62,12 @@
             <artifactId>uni-merchant</artifactId>
         </dependency>
 
+        <!-- ict -->
+        <dependency>
+            <groupId>com.uni</groupId>
+            <artifactId>uni-ict</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
