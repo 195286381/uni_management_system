@@ -3,6 +3,7 @@ package com.uni.framework.web.exception;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -28,6 +29,15 @@ import com.uni.common.utils.html.EscapeUtil;
 public class GlobalExceptionHandler
 {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    /**
+     * 处理SQL异常
+     */
+    @ExceptionHandler(DataAccessException.class)
+    public AjaxResult handleDataAccessException(DataAccessException e) {
+        log.error("SQL异常：{}", e.getMessage());
+        return AjaxResult.error( "数据库操作异常，请联系管理员");
+    }
 
     /**
      * 权限校验异常
@@ -103,6 +113,7 @@ public class GlobalExceptionHandler
 
     /**
      * 系统异常
+     *
      */
     @ExceptionHandler(Exception.class)
     public AjaxResult handleException(Exception e, HttpServletRequest request)

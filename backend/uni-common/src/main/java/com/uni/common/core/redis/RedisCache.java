@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * spring redis 工具类
+ * 封装 redisTemplate.
  *
  * @author uni
  **/
