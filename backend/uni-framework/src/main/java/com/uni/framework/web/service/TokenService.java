@@ -57,6 +57,9 @@ public class TokenService
     /**
      * 获取用户身份信息
      *
+     * 其实这一段代码的逻辑就是从Header中获取token.
+     *
+     *
      * @return 用户信息
      */
     public LoginUser getLoginUser(HttpServletRequest request)

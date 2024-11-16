@@ -181,13 +181,6 @@
                 <version>${uni.version}</version>
             </dependency>
 
-            <!-- 代码生成-->
-            <dependency>
-                <groupId>com.uni</groupId>
-                <artifactId>uni-course</artifactId>
-                <version>${uni.version}</version>
-            </dependency>
-
             <!-- 短信模块 -->
             <dependency>
                 <groupId>com.uni</groupId>
@@ -202,7 +195,12 @@
                 <version>${uni.version}</version>
             </dependency>
 
-            <!-- ICT-->
+            <dependency>
+                <groupId>com.uni</groupId>
+                <artifactId>uni-practice</artifactId>
+                <version>${uni.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.uni</groupId>
                 <artifactId>uni-ict</artifactId>
@@ -224,6 +222,7 @@
         <module>uni-sms</module>
         <module>uni-merchant</module>
         <module>uni-ict</module>
+        <module>uni-practice</module>
     </modules>
     <packaging>pom</packaging>
 

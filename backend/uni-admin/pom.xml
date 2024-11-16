@@ -68,6 +68,12 @@
             <artifactId>uni-ict</artifactId>
         </dependency>
 
+        <!-- practice -->
+        <dependency>
+            <groupId>com.uni</groupId>
+            <artifactId>uni-practice</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
