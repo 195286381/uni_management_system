@@ -201,11 +201,6 @@
                 <version>${uni.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.uni</groupId>
-                <artifactId>uni-ict</artifactId>
-                <version>${uni.version}</version>
-            </dependency>
 
 
 
@@ -221,7 +216,6 @@
         <module>uni-common</module>
         <module>uni-sms</module>
         <module>uni-merchant</module>
-        <module>uni-ict</module>
         <module>uni-practice</module>
     </modules>
     <packaging>pom</packaging>
