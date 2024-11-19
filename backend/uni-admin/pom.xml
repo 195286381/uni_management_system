@@ -56,11 +56,11 @@
             <artifactId>uni-sms</artifactId>
         </dependency>
 
-        <!-- practice -->
-<!--        <dependency>-->
-<!--            <groupId>com.uni</groupId>-->
-<!--            <artifactId>uni-practice</artifactId>-->
-<!--        </dependency>-->
+        <!-- 太平洋AI模块 -->
+        <dependency>
+            <groupId>com.uni</groupId>
+            <artifactId>uni-cpic</artifactId>
+        </dependency>
 
     </dependencies>
 

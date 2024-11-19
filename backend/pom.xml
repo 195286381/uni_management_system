@@ -197,7 +197,12 @@
 
 
             <!-- 业务模块-->
-            <!-- 业务模块添加在这里 -->
+            <!-- 人保业务模块 -->
+            <dependency>
+                <groupId>com.uni</groupId>
+                <artifactId>uni-cpic</artifactId>
+                <version>${uni.version}</version>
+            </dependency>
 
 
 
@@ -214,6 +219,7 @@
         <module>uni-common</module>
         <module>uni-sms</module>
         <module>uni-practice</module>
+        <module>uni-cpic</module>
     </modules>
     <packaging>pom</packaging>
 
