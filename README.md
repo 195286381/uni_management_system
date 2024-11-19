@@ -23,8 +23,6 @@
   | Node  | 16.13.2           |
 - | Minio | 版本待补充             |
 
-![img.png](img.png)
-
 ## 新增功能.
 - 集成jasypt实现配置文件加密
 - 集成jsencrypt实现密码加密传输方式
