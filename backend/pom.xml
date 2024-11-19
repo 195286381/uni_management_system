@@ -191,15 +191,13 @@
             <!-- 业务模块-->
             <dependency>
                 <groupId>com.uni</groupId>
-                <artifactId>uni-merchant</artifactId>
-                <version>${uni.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.uni</groupId>
                 <artifactId>uni-practice</artifactId>
                 <version>${uni.version}</version>
             </dependency>
+
+
+            <!-- 业务模块-->
+            <!-- 业务模块添加在这里 -->
 
 
 
@@ -215,7 +213,6 @@
         <module>uni-generator</module>
         <module>uni-common</module>
         <module>uni-sms</module>
-        <module>uni-merchant</module>
         <module>uni-practice</module>
     </modules>
     <packaging>pom</packaging>
