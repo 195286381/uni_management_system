@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 太平洋保险业务代码
  * @author zhuzw
  * @date 2024/11/19 14:59
  */
