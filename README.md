@@ -1,12 +1,17 @@
 # 通用后台管理系统
 
 ## 说明
-通用后台管理系统基于ruoyi V3.8.8系统版本改造. 适配一般项目情况.
+通用后台管理系统. by xzzzzz
+适配一般项目情况.
 
 - 采用了前后端分离的单体架构设计
 - 软件环境: JDK、MYSQL、Redis、Minio、Maven、Node
-- 技术选型: Spring Boot, Spring Security, MyBatis, Jwt, Vue3, Element-Plus
- 
+- 后端技术选型: Spring Boot, Spring Security, MyBatis, Jwt, Vue3, Element-Plus
+- 前端技术选型:
+  - 移动端选型: uniapp 
+  - PC端选型:
+    - Vue2版本: Vue2 Element-UI, Axios, Vuex
+    - Vue3版本: Vue3, Element-Plus, Vite, Axios, Pinia
 ## 快速开始
 - | 工具    | 版本说明              |
   |-------|-------------------|

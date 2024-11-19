@@ -56,6 +56,12 @@
             <artifactId>uni-sms</artifactId>
         </dependency>
 
+        <!-- 测试代码模块 -->
+        <dependency>
+            <groupId>com.uni</groupId>
+            <artifactId>uni-practice</artifactId>
+        </dependency>
+
         <!-- 太平洋AI模块 -->
         <dependency>
             <groupId>com.uni</groupId>
