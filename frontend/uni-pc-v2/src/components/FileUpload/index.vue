@@ -41,6 +41,7 @@
 
 <script>
 import { getToken } from "@/utils/auth";
+import {isExternal} from "@/utils/validate";
 
 export default {
   name: "FileUpload",
@@ -90,7 +91,12 @@ export default {
           // 然后将数组转为对象数组
           this.fileList = list.map(item => {
             if (typeof item === "string") {
-              item = { name: item, url: item };
+              if (item.indexOf(baseUrl) === -1 && !isExternal(item)) {
+                item = { name: baseUrl + item, url: baseUrl + item };
+              } else {
+                item = { name: item, url: item };
+              }
+              //item = { name: item, url: item };
             }
             item.uid = item.uid || new Date().getTime() + temp++;
             return item;
